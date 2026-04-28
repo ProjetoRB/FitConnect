@@ -11,6 +11,7 @@ public class Cliente {
 	private String senha;
 	private Double altura;
 	private Double peso;
+	
 
 	public void cadastrar () {
 		System.out.println("Usuario cadastrado com sucesso");
