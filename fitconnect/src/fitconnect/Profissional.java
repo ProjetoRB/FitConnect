@@ -2,7 +2,6 @@ package fitconnect;
 
 public class Profissional {
 	
-	
 	public void aceitarConsulta() {
 		System.out.println("Consulta Aceita");
 	}
@@ -12,5 +11,4 @@ public class Profissional {
 	public void cancelarConsulta() {
 		System.out.println("Consulta cancelada");
 	}
-	
 }

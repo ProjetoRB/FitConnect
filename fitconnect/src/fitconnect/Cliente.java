@@ -12,17 +12,15 @@ public class Cliente {
 	private Double altura;
 	private Double peso;
 
-
-	public void cadastrar (){
+	public void cadastrar () {
 		System.out.println("Usuario cadastrado com sucesso");
 	}
 	
-	public void login (){
+	public void login () {
 		System.out.println("Login realizado");
 	}
 	
-	public void alterarInformacoes (){
+	public void alterarInformacoes () {
 		System.out.println("informação alterada com sucesso");
 	}
-	
 }
