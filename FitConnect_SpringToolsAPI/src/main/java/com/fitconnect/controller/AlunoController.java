@@ -1,6 +1,5 @@
 package com.fitconnect.controller;
 
-
 import java.util.List;
 
 import jakarta.validation.Valid;
@@ -27,6 +26,7 @@ public class AlunoController {
         return ResponseEntity.ok(service.listarAlunos());
     }
 
+    
     @GetMapping("/{id}")
     public ResponseEntity<AlunoResponseDTO> buscarPorId(@PathVariable Long id) {
         AlunoResponseDTO aluno = service.buscarPorId(id);
