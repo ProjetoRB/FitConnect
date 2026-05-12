@@ -1,0 +1,45 @@
+create database if not exists fitconnect_db;
+
+use fitconnect_db;
+
+create table if not exists aluno (
+    id bigint auto_increment primary key,
+    nome_completo varchar(255) not null,
+    email varchar(255) not null unique,
+    cpf varchar(20) not null unique,
+    peso varchar(20),
+    altura varchar(20),
+    sexo varchar(20),
+    senha varchar(255) not null
+);
+
+create table if not exists agenda_aluno(
+    id bigint auto_increment primary key,
+    aluno_id bigint,
+    data_agendamento date not null,
+    hora_agendamento time not null,
+    descricao varchar(100),
+    status_agenda varchar(50) default 'pendente',
+    foreign key (aluno_id)
+        references aluno (id)
+);
+
+create table if not exists profissional (
+    id bigint auto_increment primary key,
+    nome_completo varchar(255) not null,
+    email varchar(255) not null unique,
+    cpf varchar(20) not null unique,
+    area_profissional varchar(100) not null,
+    documento_profissional varchar(100) not null,
+    senha varchar(255) not null
+);
+
+create table if not exists agenda_profissional (
+	id bigint auto_increment primary key,
+    profissional_id bigint,
+    data_agendamento date not null,
+    hora_agendamento time not null,
+    descricao varchar (100),
+    foreign key (profissional_id)
+		references profissional(id)
+);
