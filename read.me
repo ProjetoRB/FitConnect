@@ -1,0 +1,314 @@
+create database if not exists projeto_mvvm;
+
+use projeto_mvvm;
+
+create table if not exists aluno (
+    id bigint auto_increment primary key,
+    nome_completo varchar(255) not null,
+    email varchar(255) not null unique,
+    cpf varchar(20) not null unique,
+    peso varchar(20),
+    altura varchar(20),
+    sexo varchar(20),
+    senha varchar(255) not null
+);
+
+create table if not exists agenda_aluno(
+    id bigint auto_increment primary key,
+    aluno_id bigint,
+    data_agendamento date not null,
+    hora_agendamento time not null,
+    descricao varchar(100),
+    status_agenda varchar(50) default 'pendente',
+    
+    foreign key (aluno_id)
+        references aluno (id)
+);
+
+create table if not exists profissional (
+    id bigint auto_increment primary key,
+    nome_completo varchar(255) not null,
+    email varchar(255) not null unique,
+    cpf varchar(20) not null unique,
+    area_profissional varchar(100) not null,
+    documento_profissional varchar(100) not null,
+    senha varchar(255) not null
+);
+
+create table if not exists agenda_profissional (
+    id bigint auto_increment primary key,
+    profissional_id bigint not null,
+    aluno_id bigint null,
+    data_disponivel date not null,
+    hora_disponivel time not null,
+    descricao varchar(100),
+    status_horario varchar(50) default 'disponivel',
+
+    foreign key (profissional_id)
+        references profissional(id),
+
+    foreign key (aluno_id)
+        references aluno(id)
+);
+
+create table if not exists chat_conversa (
+    id bigint auto_increment primary key,
+    aluno_id bigint not null,
+    profissional_id bigint not null,
+    data_criacao datetime default current_timestamp,
+    status_conversa varchar(50) default 'ativa',
+
+    foreign key (aluno_id)
+        references aluno(id),
+        
+    foreign key (profissional_id)
+        references profissional(id)
+);
+
+create table if not exists chat_mensagem (
+    id bigint auto_increment primary key,
+    conversa_id bigint not null,
+    remetente_tipo varchar(20) not null,
+    mensagem text not null,
+    data_envio datetime default current_timestamp,
+    lida boolean default false,
+
+    foreign key (conversa_id)
+        references chat_conversa(id)
+);
+
+-- =========================
+-- INSERTS ALUNOS
+-- =========================
+
+insert into aluno
+(nome_completo, email, cpf, peso, altura, sexo, senha)
+values
+('Carlos Silva', 'carlos@gmail.com', '11111111111', '80kg', '1.80', 'Masculino', '123456');
+
+insert into aluno
+(nome_completo, email, cpf, peso, altura, sexo, senha)
+values
+('Mariana Souza', 'mariana@gmail.com', '22222222222', '60kg', '1.65', 'Feminino', '123456');
+
+insert into aluno
+(nome_completo, email, cpf, peso, altura, sexo, senha)
+values
+('Pedro Oliveira', 'pedro@gmail.com', '33333333333', '75kg', '1.78', 'Masculino', '123456');
+
+
+-- =========================
+-- INSERTS PROFISSIONAIS
+-- =========================
+
+insert into profissional
+(nome_completo, email, cpf, area_profissional, documento_profissional, senha)
+values
+('Ana Nutri', 'ana@fit.com', '44444444444', 'Nutricionista', 'CRN12345', '123456');
+
+insert into profissional
+(nome_completo, email, cpf, area_profissional, documento_profissional, senha)
+values
+('João Personal', 'joao@fit.com', '55555555555', 'Personal Trainer', 'CREF54321', '123456');
+
+insert into profissional
+(nome_completo, email, cpf, area_profissional, documento_profissional, senha)
+values
+('Fernanda Fisio', 'fernanda@fit.com', '66666666666', 'Fisioterapeuta', 'CREFITO98765', '123456');
+
+-- =========================
+-- INSERTS AGENDA PROFISSIONAL
+-- =========================
+
+insert into agenda_profissional
+(profissional_id, data_disponivel, hora_disponivel, descricao)
+values
+(1, '2026-05-20', '09:00:00', 'Consulta nutricional'),
+(1, '2026-05-20', '10:00:00', 'Consulta nutricional'),
+(2, '2026-05-21', '14:00:00', 'Treino funcional'),
+(3, '2026-05-22', '15:30:00', 'Sessão de fisioterapia');
+
+-- =========================
+-- INSERTS AGENDA ALUNO
+-- =========================
+
+insert into agenda_aluno
+(aluno_id, data_agendamento, hora_agendamento, descricao)
+values
+(1, '2026-05-15', '09:00:00', 'Consulta nutricional');
+
+insert into agenda_aluno
+(aluno_id, data_agendamento, hora_agendamento, descricao)
+values
+(2, '2026-05-16', '14:30:00', 'Treino funcional');
+
+-- =========================
+-- INSERTS CHAT CONVERSA
+-- =========================
+
+insert into chat_conversa
+(aluno_id, profissional_id)
+values
+(1, 1);
+
+insert into chat_conversa
+(aluno_id, profissional_id)
+values
+(2, 2);
+
+
+-- =========================
+-- INSERTS CHAT MENSAGEM
+-- =========================
+
+insert into chat_mensagem
+(conversa_id, remetente_tipo, mensagem)
+values
+(1, 'aluno', 'Olá, gostaria de marcar uma consulta.');
+
+insert into chat_mensagem
+(conversa_id, remetente_tipo, mensagem)
+values
+(1, 'profissional', 'Claro! Temos horário amanhã às 10h.');
+
+insert into chat_mensagem
+(conversa_id, remetente_tipo, mensagem)
+values
+(2, 'aluno', 'Você monta treino para emagrecimento?');
+
+insert into chat_mensagem
+(conversa_id, remetente_tipo, mensagem)
+values
+(2, 'profissional', 'Sim! Vou preparar um plano para você.');
+
+-- =========================
+-- SELECT TODOS OS ALUNOS
+-- =========================
+
+select * from aluno;
+
+
+-- =========================
+-- SELECT TODOS OS PROFISSIONAIS
+-- =========================
+
+select * from profissional;
+
+-- =========================
+-- SELECT AGENDA DOS PROFISSIONAIS
+-- =========================
+
+select
+    agenda_profissional.id,
+    profissional.nome_completo as profissional,
+    profissional.area_profissional,
+    agenda_profissional.data_disponivel,
+    agenda_profissional.hora_disponivel,
+    agenda_profissional.descricao,
+    agenda_profissional.status_horario
+from agenda_profissional
+inner join profissional
+    on agenda_profissional.profissional_id = profissional.id;
+
+-- =========================
+-- SELECT AGENDA DOS ALUNOS
+-- =========================
+
+select 
+    agenda_aluno.id,
+    aluno.nome_completo,
+    agenda_aluno.data_agendamento,
+    agenda_aluno.hora_agendamento,
+    agenda_aluno.descricao,
+    agenda_aluno.status_agenda
+from agenda_aluno
+inner join aluno
+    on agenda_aluno.aluno_id = aluno.id;
+
+
+
+-- =========================
+-- SELECT CONVERSAS DO CHAT
+-- =========================
+
+select
+    chat_conversa.id as conversa_id,
+    aluno.nome_completo as aluno,
+    profissional.nome_completo as profissional,
+    chat_conversa.data_criacao,
+    chat_conversa.status_conversa
+from chat_conversa
+inner join aluno
+    on chat_conversa.aluno_id = aluno.id
+inner join profissional
+    on chat_conversa.profissional_id = profissional.id;
+
+
+-- =========================
+-- SELECT MENSAGENS DO CHAT
+-- =========================
+
+select
+    chat_mensagem.id,
+    chat_mensagem.conversa_id,
+    chat_mensagem.remetente_tipo,
+    chat_mensagem.mensagem,
+    chat_mensagem.data_envio,
+    chat_mensagem.lida
+from chat_mensagem
+order by chat_mensagem.data_envio asc;
+
+
+-- =========================
+-- SELECT MENSAGENS DE UMA CONVERSA ESPECÍFICA
+-- =========================
+
+select
+    chat_mensagem.remetente_tipo,
+    chat_mensagem.mensagem,
+    chat_mensagem.data_envio
+from chat_mensagem
+where conversa_id = 1
+order by data_envio asc;
+
+
+-- =========================
+-- SELECT PROFISSIONAIS POR ÁREA
+-- =========================
+
+select *
+from profissional
+where area_profissional = 'Nutricionista';
+
+
+-- =========================
+-- SELECT QUANTIDADE DE ALUNOS
+-- =========================
+
+select count(*) as total_alunos
+from aluno;
+
+
+-- =========================
+-- SELECT QUANTIDADE DE PROFISSIONAIS
+-- =========================
+
+select count(*) as total_profissionais
+from profissional;
+
+-- =========================
+-- SELECT APENAS OS HORÁRIOS DISPONÍVEIS
+-- =========================
+
+select
+    agenda_profissional.id,
+    profissional.nome_completo as profissional,
+    profissional.area_profissional,
+    agenda_profissional.data_disponivel,
+    agenda_profissional.hora_disponivel,
+    agenda_profissional.descricao,
+    agenda_profissional.status_horario
+from agenda_profissional
+inner join profissional
+    on agenda_profissional.profissional_id = profissional.id
+where agenda_profissional.status_horario = 'disponivel';
