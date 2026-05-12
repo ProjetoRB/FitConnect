@@ -1,6 +1,6 @@
-create database if not exists fitconnect_db;
+create database if not exists projeto_mvvm;
 
-use fitconnect_db;
+use projeto_mvvm;
 
 create table if not exists aluno (
     id bigint auto_increment primary key,
@@ -34,8 +34,6 @@ create table if not exists profissional (
     documento_profissional varchar(100) not null,
     senha varchar(255) not null
 );
-
-drop table if exists agenda_profissional;
 
 create table if not exists agenda_profissional (
     id bigint auto_increment primary key,
