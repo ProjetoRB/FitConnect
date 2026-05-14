@@ -65,6 +65,7 @@ public class AgendaProfissional {
         return horaDisponivel;
     }
 
+    
     public void setHoraDisponivel(LocalTime horaDisponivel) {
         this.horaDisponivel = horaDisponivel;
     }

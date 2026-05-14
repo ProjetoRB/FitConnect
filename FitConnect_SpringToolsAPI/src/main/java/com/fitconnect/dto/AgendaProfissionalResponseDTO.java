@@ -35,6 +35,7 @@ public class AgendaProfissionalResponseDTO {
         return id;
     }
 
+    
     public Long getProfissionalId() {
         return profissionalId;
     }

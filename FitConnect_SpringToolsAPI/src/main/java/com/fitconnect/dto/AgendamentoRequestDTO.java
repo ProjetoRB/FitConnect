@@ -1,5 +1,6 @@
 package com.fitconnect.dto;
 
+
 public class AgendamentoRequestDTO {
 
     private Long alunoId;

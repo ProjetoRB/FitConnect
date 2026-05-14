@@ -70,6 +70,7 @@ public class AgendaProfissionalService {
         return converterParaResponse(atualizado);
     }
 
+    
     public List<AgendaProfissionalResponseDTO> listarAgendamentosDoAluno(
             Long alunoId) {
 

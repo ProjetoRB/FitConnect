@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.fitconnect.model.AgendaProfissional;
 
+
 public interface AgendaProfissionalRepository extends JpaRepository<AgendaProfissional, Long> {
 
     List<AgendaProfissional> findByProfissionalIdAndStatusHorario(
