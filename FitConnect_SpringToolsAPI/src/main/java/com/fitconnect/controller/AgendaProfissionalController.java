@@ -65,6 +65,7 @@ public class AgendaProfissionalController {
 
         return ResponseEntity.ok(resposta);
     }
+    
 
     // ------------------------
     // LISTAR AGENDAMENTOS DO ALUNO
