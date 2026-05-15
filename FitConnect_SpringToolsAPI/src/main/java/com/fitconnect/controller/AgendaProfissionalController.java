@@ -1,5 +1,6 @@
 package com.fitconnect.controller;
 
+import com.fitconnect.dto.AtualizarStatusAgendaDTO;
 import java.util.List;
 
 
@@ -80,4 +81,22 @@ public class AgendaProfissionalController {
                 service.listarAgendamentosDoAluno(alunoId)
         );
     }
+    
+ // ------------------------
+ // ATUALIZAR STATUS
+ // ------------------------
+ @PutMapping("/status")
+ public ResponseEntity<AgendaProfissionalResponseDTO>
+ atualizarStatus(
+         @RequestBody AtualizarStatusAgendaDTO dto) {
+
+     AgendaProfissionalResponseDTO resposta =
+             service.atualizarStatus(dto);
+
+     if (resposta == null) {
+         return ResponseEntity.notFound().build();
+     }
+
+     return ResponseEntity.ok(resposta);
+ }
 }

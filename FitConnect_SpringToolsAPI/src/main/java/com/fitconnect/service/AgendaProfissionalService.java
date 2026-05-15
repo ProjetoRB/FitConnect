@@ -1,5 +1,6 @@
 package com.fitconnect.service;
 
+import com.fitconnect.dto.AtualizarStatusAgendaDTO;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -92,5 +93,32 @@ public class AgendaProfissionalService {
                 agenda.getDescricao(),
                 agenda.getStatusHorario()
         );
+    }
+    
+    public AgendaProfissionalResponseDTO atualizarStatus(AtualizarStatusAgendaDTO dto) {
+
+        AgendaProfissional agenda = repository
+                .findById(dto.getHorarioId())
+                .orElse(null);
+
+        if (agenda == null) {
+            return null;
+        }
+
+        agenda.setStatusHorario(dto.getStatus());
+
+        // Se cancelar, libera o aluno do horário
+        if (
+            "cancelado_aluno".equalsIgnoreCase(dto.getStatus()) ||
+            "cancelado_profissional".equalsIgnoreCase(dto.getStatus())
+        ) {
+
+            agenda.setAlunoId(null);
+        }
+
+        AgendaProfissional atualizado =
+                repository.save(agenda);
+
+        return converterParaResponse(atualizado);
     }
 }
