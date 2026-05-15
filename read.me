@@ -33,7 +33,7 @@ create table if not exists agenda_profissional (
     hora_disponivel time not null,
     descricao varchar(100),
     status_horario varchar(50) default 'disponivel',
-
+	reg_ativo boolean default 1 not null,
     foreign key (profissional_id)
         references profissional(id),
 
