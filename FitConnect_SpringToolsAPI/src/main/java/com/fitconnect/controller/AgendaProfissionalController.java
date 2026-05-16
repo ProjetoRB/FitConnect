@@ -1,8 +1,9 @@
 package com.fitconnect.controller;
 
 import com.fitconnect.dto.AtualizarStatusAgendaDTO;
-import java.util.List;
+import com.fitconnect.model.AgendaProfissional;
 
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -98,5 +99,23 @@ public class AgendaProfissionalController {
      }
 
      return ResponseEntity.ok(resposta);
+ }
+ 
+ @DeleteMapping("/profissional/{profissionalId}")
+ public ResponseEntity<Void> deletarAgendaProfissional(
+         @PathVariable Long profissionalId) {
+
+     service.deletarAgendaProfissional(profissionalId);
+
+     return ResponseEntity.noContent().build();
+ }
+ 
+ @GetMapping("/profissional/{profissionalId}/todos")
+ public ResponseEntity<List<AgendaProfissional>> listarTodosHorariosProfissional(
+         @PathVariable Long profissionalId) {
+
+     return ResponseEntity.ok(
+             service.listarTodosHorariosProfissional(profissionalId)
+     );
  }
 }

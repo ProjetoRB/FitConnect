@@ -1,6 +1,7 @@
 package com.fitconnect.service;
 
 import com.fitconnect.dto.AtualizarStatusAgendaDTO;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,6 +13,7 @@ import com.fitconnect.dto.AgendaProfissionalResponseDTO;
 import com.fitconnect.dto.AgendamentoRequestDTO;
 import com.fitconnect.model.AgendaProfissional;
 import com.fitconnect.repository.AgendaProfissionalRepository;
+import jakarta.transaction.Transactional;
 
 @Service
 public class AgendaProfissionalService {
@@ -120,5 +122,18 @@ public class AgendaProfissionalService {
                 repository.save(agenda);
 
         return converterParaResponse(atualizado);
+    }
+    
+    @Transactional
+    public void deletarAgendaProfissional(Long profissionalId) {
+
+    	repository.deleteByProfissionalIdAndStatusHorario(profissionalId, "disponivel");
+
+    }
+    
+    public List<AgendaProfissional> listarTodosHorariosProfissional(
+            Long profissionalId) {
+
+        return repository.findByProfissionalId(profissionalId);
     }
 }
