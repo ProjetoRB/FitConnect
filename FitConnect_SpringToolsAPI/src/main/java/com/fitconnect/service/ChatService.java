@@ -45,6 +45,7 @@ public class ChatService {
         ChatMensagem mensagem = new ChatMensagem();
 
         mensagem.setConversaId(dto.getConversaId());
+        mensagem.setRemetenteId(dto.getRemetenteId());
         mensagem.setRemetenteTipo(dto.getRemetenteTipo());
         mensagem.setMensagem(dto.getMensagem());
 

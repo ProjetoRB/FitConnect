@@ -14,6 +14,9 @@ public class ChatMensagem {
 
     @Column(name = "conversa_id")
     private Long conversaId;
+    
+    @Column(name = "remetente_id")
+    private Long remetenteId;
 
     @Column(name = "remetente_tipo")
     private String remetenteTipo;
@@ -37,6 +40,10 @@ public class ChatMensagem {
     public Long getId() {
         return id;
     }
+    
+    public Long getRemetenteId() {
+        return remetenteId;
+    }
 
     public Long getConversaId() {
         return conversaId;
@@ -46,6 +53,10 @@ public class ChatMensagem {
         this.conversaId = conversaId;
     }
 
+    public void setRemetenteId(Long remetenteId) {
+        this.remetenteId = remetenteId;
+    }
+    
     public String getRemetenteTipo() {
         return remetenteTipo;
     }
