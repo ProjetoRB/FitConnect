@@ -51,7 +51,7 @@ public class ChatService {
 
         return mensagemRepository.save(mensagem);
     }
-
+ 
     public List<ChatMensagem> listarMensagens(Long conversaId) {
         return mensagemRepository.findByConversaIdOrderByDataEnvioAsc(conversaId);
     }
