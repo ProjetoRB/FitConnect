@@ -16,7 +16,7 @@ public class ChatMensagem {
     private Long conversaId;
     
     @Column(name = "remetente_id")
-    private Long remetenteId;
+    private Long remetenteId; 
 
     @Column(name = "remetente_tipo")
     private String remetenteTipo;
