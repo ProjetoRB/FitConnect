@@ -24,11 +24,15 @@ public class ChatController {
     public ResponseEntity<ChatConversa> criarOuBuscarConversa(
             @RequestBody ChatConversaRequestDTO dto) {
 
-        return ResponseEntity.ok(
-                service.criarOuBuscarConversa(dto)
-        );
-    }
+        ChatConversa conversa = service.criarOuBuscarConversa(dto);
 
+        if (conversa == null) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        return ResponseEntity.ok(conversa);
+    }
+    
     @PostMapping("/mensagem")
     public ResponseEntity<ChatMensagem> enviarMensagem(
             @RequestBody ChatMensagemRequestDTO dto) {

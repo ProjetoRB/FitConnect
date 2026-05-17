@@ -11,6 +11,7 @@ import com.fitconnect.model.ChatConversa;
 import com.fitconnect.model.ChatMensagem;
 import com.fitconnect.repository.ChatConversaRepository;
 import com.fitconnect.repository.ChatMensagemRepository;
+import com.fitconnect.repository.AgendaProfissionalRepository;
 
 @Service
 public class ChatService {
@@ -20,9 +21,23 @@ public class ChatService {
 
     @Autowired
     private ChatMensagemRepository mensagemRepository;
+    
+    @Autowired
+    private AgendaProfissionalRepository agendaRepository;
 
     public ChatConversa criarOuBuscarConversa(ChatConversaRequestDTO dto) {
 
+    	boolean existeAgendamento =
+    	        agendaRepository.existsByAlunoIdAndProfissionalIdAndStatusHorario(
+    	                dto.getAlunoId(),
+    	                dto.getProfissionalId(),
+    	                "agendado"
+    	        );
+
+    	if (!existeAgendamento) {
+    	    return null;
+    	}
+    	
         ChatConversa conversaExistente =
                 conversaRepository.findByAlunoIdAndProfissionalId(
                         dto.getAlunoId(),

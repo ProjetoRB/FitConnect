@@ -19,4 +19,10 @@ public interface AgendaProfissionalRepository extends JpaRepository<AgendaProfis
     List<AgendaProfissional> findByProfissionalId(Long profissionalId);
     
     void deleteByProfissionalIdAndStatusHorario(Long profissionalId, String statusHorario);
+    
+    boolean existsByAlunoIdAndProfissionalIdAndStatusHorario(
+            Long alunoId,
+            Long profissionalId,
+            String statusHorario
+    );
 }
