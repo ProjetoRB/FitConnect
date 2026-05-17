@@ -9,6 +9,7 @@ import com.fitconnect.model.Aluno;
 import com.fitconnect.model.Profissional;
 import com.fitconnect.repository.AlunoRepository;
 import com.fitconnect.repository.ProfissionalRepository;
+import com.fitconnect.utils.PasswordUtil;
 
 @Service
 public class AuthService {
@@ -21,12 +22,12 @@ public class AuthService {
 
     public LoginResponseDTO login(LoginRequestDTO dto) {
 
-        Aluno aluno = alunoRepository.findByEmailAndSenha(
-                dto.getEmail(),
-                dto.getSenha()
-        );
+        Aluno aluno = alunoRepository.findByEmail(dto.getEmail());
 
-        if (aluno != null) {
+        if (
+            aluno != null &&
+            PasswordUtil.verificar(dto.getSenha(), aluno.getSenha())
+        ) {
             return new LoginResponseDTO(
                     aluno.getId(),
                     aluno.getNomeCompleto(),
@@ -36,12 +37,12 @@ public class AuthService {
             );
         }
 
-        Profissional profissional = profissionalRepository.findByEmailAndSenha(
-                dto.getEmail(),
-                dto.getSenha()
-        );
+        Profissional profissional = profissionalRepository.findByEmail(dto.getEmail());
 
-        if (profissional != null) {
+        if (
+            profissional != null &&
+            PasswordUtil.verificar(dto.getSenha(), profissional.getSenha())
+        ) {
             return new LoginResponseDTO(
                     profissional.getId(),
                     profissional.getNomeCompleto(),

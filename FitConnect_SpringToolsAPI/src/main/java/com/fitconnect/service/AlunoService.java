@@ -1,6 +1,7 @@
 package com.fitconnect.service;
 
 import java.util.List;
+
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import com.fitconnect.dto.AlunoRequestDTO;
 import com.fitconnect.dto.AlunoResponseDTO;
 import com.fitconnect.model.Aluno;
 import com.fitconnect.repository.AlunoRepository;
+import com.fitconnect.utils.PasswordUtil;
 
 @Service
 public class AlunoService {
@@ -33,7 +35,7 @@ public class AlunoService {
         aluno.setPeso(dto.getPeso());
         aluno.setAltura(dto.getAltura());
         aluno.setSexo(dto.getSexo());
-        aluno.setSenha(dto.getSenha());
+        aluno.setSenha(PasswordUtil.criptografar(dto.getSenha()));;
 
         Aluno alunoSalvo = repository.save(aluno);
 
@@ -67,7 +69,7 @@ public class AlunoService {
         aluno.setPeso(dto.getPeso());
         aluno.setAltura(dto.getAltura());
         aluno.setSexo(dto.getSexo());
-        aluno.setSenha(dto.getSenha());
+        aluno.setSenha(PasswordUtil.criptografar(dto.getSenha()));
 
         Aluno alunoAtualizado = repository.save(aluno);
 

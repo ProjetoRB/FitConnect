@@ -5,5 +5,5 @@ import com.fitconnect.model.Aluno;
 
 public interface AlunoRepository extends JpaRepository<Aluno, Long> {
 
-    Aluno findByEmailAndSenha(String email, String senha);
+	Aluno findByEmail(String email);
 }

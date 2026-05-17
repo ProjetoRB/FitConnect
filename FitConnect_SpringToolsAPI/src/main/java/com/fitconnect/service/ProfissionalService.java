@@ -10,6 +10,7 @@ import com.fitconnect.dto.ProfissionalRequestDTO;
 import com.fitconnect.dto.ProfissionalResponseDTO;
 import com.fitconnect.model.Profissional;
 import com.fitconnect.repository.ProfissionalRepository;
+import com.fitconnect.utils.PasswordUtil;
 
 @Service
 public class ProfissionalService {
@@ -32,7 +33,7 @@ public class ProfissionalService {
         profissional.setCpf(dto.getCpf());
         profissional.setAreaProfissional(dto.getAreaProfissional());
         profissional.setDocumentoProfissional(dto.getDocumentoProfissional());
-        profissional.setSenha(dto.getSenha());
+        profissional.setSenha(PasswordUtil.criptografar(dto.getSenha()));
 
         Profissional salvo = repository.save(profissional);
 
