@@ -5,6 +5,7 @@ use projeto_mvvm;
 create table if not exists aluno (
     id bigint auto_increment primary key,
     nome_completo varchar(255) not null,
+	data_nascimento date,
     email varchar(255) not null unique,
     cpf varchar(20) not null unique,
     peso varchar(20),
@@ -17,6 +18,7 @@ create table if not exists aluno (
 create table if not exists profissional (
     id bigint auto_increment primary key,
     nome_completo varchar(255) not null,
+	data_nascimento date,
     email varchar(255) not null unique,
     cpf varchar(20) not null unique,
     area_profissional varchar(100) not null,
