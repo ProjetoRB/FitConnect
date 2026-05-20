@@ -1,5 +1,7 @@
 package com.fitconnect.dto;
 
+import java.time.LocalDate;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
@@ -24,27 +26,13 @@ public class ProfissionalRequestDTO {
     @NotBlank(message = "A senha é obrigatória")
     private String senha;
 
-    public String getNomeCompleto() {
-        return nomeCompleto;
-    }
+    private LocalDate dataNascimento;
 
-    public String getEmail() {
-        return email;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public String getAreaProfissional() {
-        return areaProfissional;
-    }
-
-    public String getDocumentoProfissional() {
-        return documentoProfissional;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
+    public String getNomeCompleto() { return nomeCompleto; }
+    public String getEmail() { return email; }
+    public String getCpf() { return cpf; }
+    public String getAreaProfissional() { return areaProfissional; }
+    public String getDocumentoProfissional() { return documentoProfissional; }
+    public String getSenha() { return senha; }
+    public LocalDate getDataNascimento() { return dataNascimento; }
 }
