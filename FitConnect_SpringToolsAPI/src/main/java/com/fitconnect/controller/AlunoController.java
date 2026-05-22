@@ -56,8 +56,8 @@ public class AlunoController {
     @PutMapping("/{id}")
     public ResponseEntity<AlunoResponseDTO> atualizar(
             @PathVariable Long id,
-            @Valid @RequestBody AlunoRequestDTO dto) {
-
+            @RequestBody AlunoRequestDTO dto) {
+    	
         AlunoResponseDTO alunoAtualizado = service.atualizarAluno(id, dto);
 
         if (alunoAtualizado == null) {

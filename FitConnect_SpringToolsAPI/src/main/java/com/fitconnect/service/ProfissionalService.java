@@ -37,6 +37,7 @@ public class ProfissionalService {
         profissional.setEmail(dto.getEmail());
         profissional.setCpf(dto.getCpf());
         profissional.setAreaProfissional(dto.getAreaProfissional());
+        profissional.setSexo(dto.getSexo());
         profissional.setDocumentoProfissional(dto.getDocumentoProfissional());
         profissional.setSenha(PasswordUtil.criptografar(dto.getSenha()));
         profissional.setDataNascimento(dto.getDataNascimento());
@@ -49,29 +50,31 @@ public class ProfissionalService {
         Profissional profissional = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Profissional não encontrado"));
 
-        if (dto.getNomeCompleto() != null)          profissional.setNomeCompleto(dto.getNomeCompleto());
-        if (dto.getEmail() != null)                 profissional.setEmail(dto.getEmail());
-        if (dto.getAreaProfissional() != null)      profissional.setAreaProfissional(dto.getAreaProfissional());
+        if (dto.getNomeCompleto() != null) profissional.setNomeCompleto(dto.getNomeCompleto());
+        if (dto.getDataNascimento() != null) profissional.setDataNascimento(dto.getDataNascimento());
+        if (dto.getEmail() != null) profissional.setEmail(dto.getEmail());
+        if (dto.getCpf() != null) profissional.setCpf(dto.getCpf());
+        if (dto.getSexo() != null) profissional.setSexo(dto.getSexo());
+        if (dto.getAreaProfissional() != null) profissional.setAreaProfissional(dto.getAreaProfissional());
         if (dto.getDocumentoProfissional() != null) profissional.setDocumentoProfissional(dto.getDocumentoProfissional());
-        if (dto.getDataNascimento() != null)        profissional.setDataNascimento(dto.getDataNascimento());
-
         if (dto.getSenha() != null && !dto.getSenha().isBlank()) {
-            profissional.setSenha(PasswordUtil.criptografar(dto.getSenha()));
+        	profissional.setSenha(PasswordUtil.criptografar(dto.getSenha()));
         }
-
+        
         Profissional atualizado = repository.save(profissional);
         return converterParaResponse(atualizado);
     }
 
     private ProfissionalResponseDTO converterParaResponse(Profissional profissional) {
-        return new ProfissionalResponseDTO(
-                profissional.getId(),
-                profissional.getNomeCompleto(),
-                profissional.getEmail(),
-                profissional.getCpf(),
-                profissional.getAreaProfissional(),
-                profissional.getDocumentoProfissional(),
-                profissional.getDataNascimento()
-        );
+    	return new ProfissionalResponseDTO(
+    	        profissional.getId(),
+    	        profissional.getNomeCompleto(),
+    	        profissional.getDataNascimento(),
+    	        profissional.getEmail(),
+    	        profissional.getCpf(),
+    	        profissional.getSexo(),
+    	        profissional.getAreaProfissional(),
+    	        profissional.getDocumentoProfissional()
+    	);
     }
 }

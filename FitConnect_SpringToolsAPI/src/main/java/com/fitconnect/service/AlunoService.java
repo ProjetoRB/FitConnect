@@ -30,12 +30,13 @@ public class AlunoService {
         Aluno aluno = new Aluno();
 
         aluno.setNomeCompleto(dto.getNomeCompleto());
+        aluno.setDataNascimento(dto.getDataNascimento());
         aluno.setEmail(dto.getEmail());
         aluno.setCpf(dto.getCpf());
         aluno.setPeso(dto.getPeso());
         aluno.setAltura(dto.getAltura());
         aluno.setSexo(dto.getSexo());
-        aluno.setSenha(PasswordUtil.criptografar(dto.getSenha()));;
+        aluno.setSenha(PasswordUtil.criptografar(dto.getSenha()));
 
         Aluno alunoSalvo = repository.save(aluno);
 
@@ -63,16 +64,18 @@ public class AlunoService {
             return null;
         }
 
-        aluno.setNomeCompleto(dto.getNomeCompleto());
-        aluno.setEmail(dto.getEmail());
-        aluno.setCpf(dto.getCpf());
-        aluno.setPeso(dto.getPeso());
-        aluno.setAltura(dto.getAltura());
-        aluno.setSexo(dto.getSexo());
-        aluno.setSenha(PasswordUtil.criptografar(dto.getSenha()));
+        if (dto.getNomeCompleto() != null) aluno.setNomeCompleto(dto.getNomeCompleto());
+        if (dto.getDataNascimento() != null) aluno.setDataNascimento(dto.getDataNascimento());
+        if (dto.getEmail() != null) aluno.setEmail(dto.getEmail());
+        if (dto.getCpf() != null) aluno.setCpf(dto.getCpf());
+        if (dto.getSexo() != null) aluno.setSexo(dto.getSexo());
+        if (dto.getPeso() != null) aluno.setPeso(dto.getPeso());
+        if (dto.getAltura() != null) aluno.setAltura(dto.getAltura());
+        if (dto.getSenha() != null && !dto.getSenha().isBlank()) {
+            aluno.setSenha(PasswordUtil.criptografar(dto.getSenha()));
+        }
 
         Aluno alunoAtualizado = repository.save(aluno);
-
         return converterParaResponse(alunoAtualizado);
     }
 
@@ -80,11 +83,12 @@ public class AlunoService {
         return new AlunoResponseDTO(
                 aluno.getId(),
                 aluno.getNomeCompleto(),
+                aluno.getDataNascimento(),
                 aluno.getEmail(),
                 aluno.getCpf(),
                 aluno.getPeso(),
                 aluno.getAltura(),
-                aluno.getSexo()
+                aluno.getSexo() 
         );
     }
 }
