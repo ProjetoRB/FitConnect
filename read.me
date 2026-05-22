@@ -22,6 +22,7 @@ create table if not exists profissional (
     email varchar(255) not null unique,
     cpf varchar(20) not null unique,
     area_profissional varchar(100) not null,
+    sexo varchar(20),
     documento_profissional varchar(100) not null,
     senha varchar(255) not null,
     reg_ativo boolean default 1 not null
